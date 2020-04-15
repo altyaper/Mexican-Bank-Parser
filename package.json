@@ -1,11 +1,14 @@
 {
   "name": "parsermx",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "",
-  "main": "index.js",
+  "main": "lib/index.js",
   "scripts": {
     "lint": "eslint lib/ tests/ --cache --quiet",
     "test": "mocha --require @babel/register"
+  },
+  "bugs": {
+    "url": "https://github.com/echavezNS/bank_parser_mx/issues"
   },
   "author": "Jorge Chavez <jorgechavzns@gmail.com>",
   "license": "ISC",
