@@ -3,14 +3,19 @@
 Usage:
 
 ```javascript
-import { ParserBanamex, ParserSantander, ParserBancomer, ParserBanorte } from 'parserbankmx'
+import { 
+  ParserBanamex,
+  ParserSantander,
+  ParserBancomer,
+  ParserBanorte
+} from 'parsermx'
 
 const myFileContent = '
-"Fecha","Descripción","Débito","Crédito","Saldo","Moneda"
-"05-01-2018","NOUR BISTRO REST         BNO 17012SEBAMX ","7,629.10","","0.00","MXN"
-"05-01-2018","REST LICORERIA CENTRAL   GFI 141204SC1MX ","1,558.25","","0.00","MXN"
-"05-01-2018","PAYPAL *YOURLAPTOPS      4029357722   LU ","206.18","","0.00","MXN"
-"06-01-2018","PAYPAL *SALESCTE2        4029357711   LU ","4,087.55","","0.00","MXN"
+  "Fecha","Descripción","Débito","Crédito","Saldo","Moneda"
+  "05-01-2018","NOUR BISTRO REST         BNO 17012SEBAMX ","7,629.10","","0.00","MXN"
+  "05-01-2018","REST LICORERIA CENTRAL   GFI 141204SC1MX ","1,558.25","","0.00","MXN"
+  "05-01-2018","PAYPAL *YOURLAPTOPS      4029357722   LU ","206.18","","0.00","MXN"
+  "06-01-2018","PAYPAL *SALESCTE2        4029357711   LU ","4,087.55","","0.00","MXN"
 ';
 
 const parser = new ParserBanamex(myFileContent);
