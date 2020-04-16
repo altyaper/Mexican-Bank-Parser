@@ -10,7 +10,6 @@
   "bugs": {
     "url": "https://github.com/echavezNS/bank_parser_mx/issues"
   },
-  "publishConfig": { "registry": "https://npm.pkg.github.com/" },
   "author": "Jorge Chavez <jorgechavzns@gmail.com>",
   "license": "ISC",
   "dependencies": {
