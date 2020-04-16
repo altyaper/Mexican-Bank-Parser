@@ -17,6 +17,7 @@
     "@babel/core": "^7.9.0",
     "@babel/node": "^7.8.7",
     "@babel/register": "^7.9.0",
+    "md5": "^2.2.1",
     "path": "^0.12.7"
   },
   "devDependencies": {

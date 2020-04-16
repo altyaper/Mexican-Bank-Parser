@@ -3,7 +3,7 @@ import fs from 'fs';
 import ParserBanorte from '../lib/parser_banorte';
 import { expect } from 'chai';
 
-describe.only('ParserBanorte', () => {
+describe('ParserBanorte', () => {
     var content;
     var parser;
     beforeEach((done) => {
@@ -22,13 +22,11 @@ describe.only('ParserBanorte', () => {
       expectedDate.setMonth(8);
       expect(finalObject).to.be.an('array');
       expect(finalObject[0]).to.be.an('object');
-      expect(finalObject[0]).to.be.eql({
-        date: expectedDate,
-        balance: '71,846.83',
-        charge: '200.00',
-        payment: '0',
-        reference: 'PAGO CUENTA DE TERCERO/ 0092658031 BNET vecino-F10-1    0179740198'
-      });
+      expect(finalObject[0].balance).to.be.eql('71,846.83');
+      expect(finalObject[0].charge).to.be.eql('200.00');
+      expect(finalObject[0].payment).to.be.eql('0');
+      expect(finalObject[0].reference).to.be.eql('PAGO CUENTA DE TERCERO/ 0092658031 BNET vecino-F10-1    0179740198');
+      expect(finalObject[0].hash).to.be.eql('7bb2c551b792f538e5055d9490a78b42');
     });
 
     it('should return the right date', () => {
