@@ -3,13 +3,13 @@ import fs from 'fs';
 import ParserBancomer from '../lib/parser_banorte';
 import { expect } from 'chai';
 
-describe.only('ParserBancomer', () => {
+describe('ParserBancomer', () => {
     var content;
     var parser;
     beforeEach((done) => {
       fs.readFile(path.resolve('./test/files/bancomer.exp'), 'utf8', (error, data) => {
         content = data;
-        parser = new ParserBancomer(content);
+        parser = new ParserBancomer(content, '1');
         done();
       });
     });
@@ -35,6 +35,7 @@ describe.only('ParserBancomer', () => {
       expect(objects[0].charge).to.be.eql('200.00');
       expect(objects[0].payment).to.be.eql('0');
       expect(objects[0].balance).to.be.eql('71,846.83');
+      expect(objects[0].hash).to.be.eql('220167363e43ad4210eaa9f94e7f3c9b');
     });
 
     it('should parse a file', () => {

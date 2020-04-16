@@ -26,7 +26,6 @@ describe('ParserBanorte', () => {
       expect(finalObject[0].charge).to.be.eql('200.00');
       expect(finalObject[0].payment).to.be.eql('0');
       expect(finalObject[0].reference).to.be.eql('PAGO CUENTA DE TERCERO/ 0092658031 BNET vecino-F10-1    0179740198');
-      expect(finalObject[0].hash).to.be.eql('7bb2c551b792f538e5055d9490a78b42');
     });
 
     it('should return the right date', () => {

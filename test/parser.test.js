@@ -5,18 +5,21 @@ import Banks from '../lib/';
 import { expect } from 'chai';
 
 describe('Parser factory', () => {
-    it('should return a ParserBanamex instance', () => {
-        const c = new Banks['banamex']();
-        expect(c).instanceOf(ParserBanamex);
-    });
 
-    it('should return a ParserBanorte instance', () => {
-      const c = new Banks['banorte']();
-      expect(c).instanceOf(ParserBanorte);
-    });
+  
 
-    it('should return a ParserSantander instance', () => {
-      const c = new Banks['santander']();
-      expect(c).instanceOf(ParserSantander);
-    });
+  it('should return a ParserBanamex instance', () => {
+      const c = new Banks['banamex']();
+      expect(c).instanceOf(ParserBanamex);
+  });
+
+  it('should return a ParserBanorte instance', () => {
+    const c = new Banks['banorte']();
+    expect(c).instanceOf(ParserBanorte);
+  });
+
+  it('should return a ParserSantander instance', () => {
+    const c = new Banks['santander']();
+    expect(c).instanceOf(ParserSantander);
+  });
 });

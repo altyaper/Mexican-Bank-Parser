@@ -1,6 +1,6 @@
 {
   "name": "parsermx",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "",
   "main": "lib/index.js",
   "scripts": {
@@ -10,6 +10,7 @@
   "bugs": {
     "url": "https://github.com/echavezNS/bank_parser_mx/issues"
   },
+  "publishConfig": { "registry": "https://npm.pkg.github.com/" },
   "author": "Jorge Chavez <jorgechavzns@gmail.com>",
   "license": "ISC",
   "dependencies": {

@@ -3,7 +3,7 @@
 Usage:
 
 ```javascript
-import { ParserBanamex } from 'parserbankmx'
+import { ParserBanamex, ParserSantander, ParserBancomer, ParserBanorte } from 'parserbankmx'
 
 const myFileContent = '
 "Fecha","Descripción","Débito","Crédito","Saldo","Moneda"
@@ -46,3 +46,8 @@ Output:
     currency: 'MXN' } ]
 ```
 
+
+
+## Run tests
+
+`npm run test`
