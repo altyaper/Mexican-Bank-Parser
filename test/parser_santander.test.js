@@ -27,4 +27,11 @@ describe('ParserSantander', () => {
     expect(object[6]).to.be.eql('650.00');
     expect(object[7]).to.be.eql('67705.02');
   });
+
+  it('should display the date correctly', () => {
+    const date = parser.getSantanderDate('02012020');
+    expect(date.getDate()).to.be.eql(2);
+    expect(date.getMonth()).to.be.eql(0);
+    expect(date.getFullYear()).to.be.eql(2020);
+  });
 });
