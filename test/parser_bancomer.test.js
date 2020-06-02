@@ -1,6 +1,6 @@
 import path from 'path';
 import fs from 'fs';
-import ParserBancomer from '../lib/parser_banorte';
+import ParserBancomer from '../lib/parser_bancomer';
 import { expect } from 'chai';
 
 describe('ParserBancomer', () => {
@@ -19,7 +19,7 @@ describe('ParserBancomer', () => {
     });
 
     it('should retrieve the array from the line', () => {
-      const line = "29-09-2017	PAGO CUENTA DE TERCERO/ 0092658031 BNET vecino-F10-1    0179740198	200.00		71,846.83";
+      const line = '29-09-2017	PAGO CUENTA DE TERCERO/ 0092658031 BNET vecino-F10-1    0179740198	200.00		71,846.83';
       const object = parser.getPaymentObject(line);
       expect(object[0]).to.be.eql('29-09-2017');
       expect(object[1]).to.be.eql('PAGO CUENTA DE TERCERO/ 0092658031 BNET vecino-F10-1    0179740198');
@@ -29,20 +29,20 @@ describe('ParserBancomer', () => {
     });
 
     it('should retrieve an array of objects from the content file', () => {
-      const items = ['29-09-2017	PAGO CUENTA DE TERCERO/ 0092658031 BNET vecino-F10-1    0179740198	200.00		71,846.83'];
+      const items = ['02-01-2020	AGUA Y SANEAMIENTO CHIH/JMA500421 GPO O2392975	150.00		360.00'];
       const objects = parser.getArrayPaymentsObject(items);
-      expect(objects[0].reference).to.be.eql('PAGO CUENTA DE TERCERO/ 0092658031 BNET vecino-F10-1    0179740198');
-      expect(objects[0].charge).to.be.eql('200.00');
+      expect(objects[0].reference).to.be.eql('AGUA Y SANEAMIENTO CHIH/JMA500421 GPO O2392975');
+      expect(objects[0].charge).to.be.eql('150.00');
       expect(objects[0].payment).to.be.eql('0');
-      expect(objects[0].balance).to.be.eql('71,846.83');
-      expect(objects[0].hash).to.be.eql('220167363e43ad4210eaa9f94e7f3c9b');
+      expect(objects[0].balance).to.be.eql('360.00');
+      expect(objects[0].hash).to.be.eql('4ac5d2c662fa9c014368dcaa704ce07e');
     });
 
     it('should parse a file', () => {
       const payments = parser.parse(content);
       expect(payments).to.be.an('array');
-      expect(payments).to.be.length(4);
-      expect(payments[0].reference).to.be.eql('PAGO CUENTA DE TERCERO/ 0092658031 BNET vecino-F10-1    0179740198');
-      expect(payments[0].charge).to.be.eql('200.00');
+      expect(payments).to.be.length(6);
+      expect(payments[0].reference).to.be.eql('CE00000000000000016224/1866947                               0984078');
+      expect(payments[0].charge).to.be.eql('0');
     });
 });
