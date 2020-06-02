@@ -42,7 +42,7 @@ describe('ParserBancomer', () => {
       const payments = parser.parse(content);
       expect(payments).to.be.an('array');
       expect(payments).to.be.length(6);
-      expect(payments[0].reference).to.be.eql('CE00000000000000016224/1866947                               0984078');
-      expect(payments[0].charge).to.be.eql('0');
+      expect(payments[0].reference).to.be.eql('AGUA Y SANEAMIENTO CHIH/JMA500421 GPO O2392975');
+      expect(payments[0].charge).to.be.eql('150.00');
     });
 });
