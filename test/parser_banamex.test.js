@@ -47,7 +47,8 @@ describe('ParserBanamex', () => {
       payment: '7,629.10',
       charge: '0',
       balance: '0.00',
-      currency: 'MXN'
+      currency: 'MXN',
+      hash: '028a6c5efef2b434d18c094ed3e562a8'
     });
   });
 
@@ -59,7 +60,8 @@ describe('ParserBanamex', () => {
       payment: '7,629.10',
       charge: '0',
       balance: '0.00',
-      currency: 'MXN'
+      currency: 'MXN',
+      hash: '028a6c5efef2b434d18c094ed3e562a8'
     });
   });
 
