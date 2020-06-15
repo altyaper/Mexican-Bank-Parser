@@ -42,26 +42,26 @@ describe('ParserBanamex', () => {
     expect(payments).to.be.an('array');
     expect(payments[0]).to.be.an('object');
     expect(payments[0]).to.be.eql({
-      date: new Date('01-13-2018'),
+      date: new Date('01-05-2018'),
       reference: 'NOUR BISTRO REST         BNO 170124EBAMX',
       payment: '7,629.10',
       charge: '0',
       balance: '0.00',
       currency: 'MXN',
-      hash: '028a6c5efef2b434d18c094ed3e562a8'
+      hash: '8aee9342ddac0b9865622c7882a362ff'
     });
   });
 
   it('should parser a content correctly', () => {
     const final = parser.parse();
     expect(final[final.length - 1]).to.be.eql({
-      date: new Date('2018-01-13T07:00:00.000Z'),
+      date: new Date('01-05-2018'),
       reference: 'NOUR BISTRO REST         BNO 170124EBAMX',
       payment: '7,629.10',
       charge: '0',
       balance: '0.00',
       currency: 'MXN',
-      hash: '028a6c5efef2b434d18c094ed3e562a8'
+      hash: '8aee9342ddac0b9865622c7882a362ff'
     });
   });
 

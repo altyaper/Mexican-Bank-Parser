@@ -38,10 +38,17 @@ describe('ParserBancomer', () => {
       expect(objects[0].hash).to.be.eql('4ac5d2c662fa9c014368dcaa704ce07e');
     });
 
+    it('should parse dates correctly', () => {
+      const items = ['30-01-2020	CE00000000000000011978/310455G 11941                         0984078		114.00	999.00'];
+      const objects = parser.getArrayPaymentsObject(items);
+      const expectedDate = new Date('01-30-2020');
+      expect(objects[0].date).to.be.eql(expectedDate);
+    });
+
     it('should parse a file', () => {
       const payments = parser.parse(content);
       expect(payments).to.be.an('array');
-      expect(payments).to.be.length(6);
+      expect(payments).to.be.length(7);
       expect(payments[0].reference).to.be.eql('AGUA Y SANEAMIENTO CHIH/JMA500421 GPO O2392975');
       expect(payments[0].charge).to.be.eql('150.00');
     });
