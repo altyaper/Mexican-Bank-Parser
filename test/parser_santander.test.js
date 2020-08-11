@@ -36,9 +36,11 @@ describe('ParserSantander', () => {
   });
 
   it('should hash the previous hash that we had before', () => {
-    const line = ["065507051987,01062020,05:48,'0560',COM MEM E-PYM                           ,-,650.00,137731.03,               ,                   MAY 2020                                                               ,                                        ,                    ,                                        ,                    ,                                        ,  ,                              ,               ,               ,                              "];
+    const line = ["065507051987,'01062020',05:48,'0560',COM MEM E-PYM                           ,-,650.00,137731.03,               ,                   MAY 2020                                                               ,                                        ,                    ,                                        ,                    ,                                        ,  ,                              ,               ,               ,                              "];
     const object = parser.getArrayPaymentsObject(line);
     expect(object[0].reference).to.be.eql('COM MEM E-PYM  MAY 2020');
     expect(object[0].hash).to.be.eql('a27b9ba6a42657464cba6ffca8798b4f');
+    expect(object[0].date).to.be.eql(new Date('2020-06-02'));
   });
+
 });
