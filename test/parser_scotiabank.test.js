@@ -34,4 +34,18 @@ describe.only('Scotiabank', () => {
     expect(object[0].date.getMonth()).to.be.eql(10);
     expect(object[0].date.getFullYear()).to.be.eql(2020);
   });
+
+  it('should check if it sets the payment and charge fields correctly', () => {
+    const linePayment = ['"CHQ"|"MXN"|000|00000021505639271|"2020/11/03"|00000000000000221101|600.00|"Abono"|243975.57|"SWEB TRASPASO ENTRE CUENTAS"||||""'];
+    const objectPayment = parser.getArrayPaymentsObject(linePayment);
+    expect(objectPayment[0].payment).to.be.eql('600.00');
+    expect(objectPayment[0].charge).to.be.eql('0');
+
+    const lineCharge = ['"CHQ"|"MXN"|000|00000021505639271|"2020/11/03"|00000000000000221101|600.00|"Cargo"|243975.57|"SWEB TRASPASO ENTRE CUENTAS"||||""'];
+    const object = parser.getArrayPaymentsObject(lineCharge);
+    expect(object[0].charge).to.be.eql('600.00');
+    expect(object[0].payment).to.be.eql('0');
+  });
+
+  
 });
