@@ -28,7 +28,7 @@ describe.only('Scotiabank', () => {
     const line = ['"CHQ"|"MXN"|000|00000021505639271|"2020/11/03"|00000000000000221101|600.00|"Abono"|243975.57|"SWEB TRASPASO ENTRE CUENTAS"||||""'];
     const object = parser.getArrayPaymentsObject(line);
     expect(object[0].reference).to.be.eql('0221101');
-    expect(object[0].description).to.be.eql('SWEB TRASPASO ENTRE CUENTAS');
+    expect(object[0].description).to.be.eql('SWEB TRASPASO ENTRE CUENTAS 00000000000000221101');
     expect(object[0].hash).to.be.eql('0927129f55312231bc452c7f5686c699');
     expect(object[0].date.getDate()).to.be.eql(3);
     expect(object[0].date.getMonth()).to.be.eql(10);
@@ -47,5 +47,10 @@ describe.only('Scotiabank', () => {
     expect(object[0].payment).to.be.eql('0');
   });
 
+  it('should get the description correctly', () => {
+    const line = ['"CHQ"|"MXN"|000|00000021505639272|"2020/11/03"|00000000000000311200|600.00|"Abono"|249348.89|"TRANSF INTERBANCARIA SPEI"||||"TRANSF INTERBANCARIA SPEIPAGO/BBVA BANCOMERFecha de Abono: 04 NOVMBAN01002011040080919516EDNA PEDRO LOPEZ/012150001997990791"'];
+    const object = parser.getArrayPaymentsObject(line);
+    expect(object[0].description).to.be.eql('TRANSF INTERBANCARIA SPEI 00000000000000311200 TRANSF INTERBANCARIA SPEIPAGO/BBVA BANCOMERFecha de Abono: 04 NOVMBAN01002011040080919516EDNA PEDRO LOPEZ/012150001997990791')
+  });
   
 });
