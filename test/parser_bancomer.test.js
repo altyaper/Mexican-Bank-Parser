@@ -31,11 +31,15 @@ describe('ParserBancomer', () => {
     it('should retrieve an array of objects from the content file', () => {
       const items = ['02-01-2020	AGUA Y SANEAMIENTO CHIH/JMA500421 GPO O2392975	150.00		360.00'];
       const objects = parser.getArrayPaymentsObject(items);
-      expect(objects[0].reference).to.be.eql('AGUA Y SANEAMIENTO CHIH/JMA500421 GPO O2392975');
-      expect(objects[0].charge).to.be.eql('150.00');
-      expect(objects[0].payment).to.be.eql('0');
-      expect(objects[0].balance).to.be.eql('360.00');
-      expect(objects[0].hash).to.be.eql('4ac5d2c662fa9c014368dcaa704ce07e');
+      expect(objects[0]).to.be.eql({
+        reference: '',
+        description: 'AGUA Y SANEAMIENTO CHIH/JMA500421 GPO O2392975',
+        charge: '150.00',
+        payment: '0',
+        balance: '360.00',
+        hash: '4ac5d2c662fa9c014368dcaa704ce07e',
+        date: new Date(2020, 0, 2, 0, 0, 0)
+      });
     });
 
     it('should parse dates correctly', () => {
@@ -49,7 +53,76 @@ describe('ParserBancomer', () => {
       const payments = parser.parse(content);
       expect(payments).to.be.an('array');
       expect(payments).to.be.length(7);
-      expect(payments[0].reference).to.be.eql('AGUA Y SANEAMIENTO CHIH/JMA500421 GPO O2392975');
+      expect(payments[0].reference).to.be.eql('');
+      expect(payments[0].description).to.be.eql('AGUA Y SANEAMIENTO CHIH/JMA500421 GPO O2392975');
       expect(payments[0].charge).to.be.eql('150.00');
+    });
+
+    it('should get the reference from TEF', () => {
+      const description = 'TEF RECIBIDOBANAMEX/0183770760  002 03401210340121';
+      const reference = parser.getTEFReference(description);
+      expect(reference).to.be.eql('0340121');
+    });
+
+    it('should get the reference from SPEI', () => {
+      const description = 'SPEI RECIBIDOBANAMEX/0183770760  002 03401210340121';
+      const reference = parser.getTEFReference(description);
+      expect(reference).to.be.eql('0340121');
+    });
+
+    it('should get the reference from DEPOSITO EFECTIVO PRACTIC', () => {
+      const description = 'DEPOSITO EFECTIVO PRACTIC/**2875 0620122 0763 FOLIO:2594';
+      const reference = parser.getPracticReference(description);
+      expect(reference).to.be.eql('0620122');
+    });
+
+    it('should get the reference from DEPOSITO EN EFECTIVO', () => {
+      const description = 'DEPOSITO EN EFECTIVO/000765500440121';
+      const reference = parser.getCashReference(description);
+      expect(reference).to.be.eql('0440121');
+    });
+
+    it('should get the reference from PAGO CUENTA DE TERCERO without reference', () => {
+      const description = 'PAGO CUENTA DE TERCERO/ 9539256342 BNET 2761285653 0560121';
+      const reference = parser.getCashReference(description);
+      expect(reference).to.be.eql('0560121');
+    });
+
+    it('should get the reference from PAGO CUENTA DE TERCERO with reference', () => {
+      const description = 'PAGO CUENTA DE TERCERO/ 9539256342 BNET 2761285653 0560121PAGO';
+      const reference = parser.getThirdReference(description);
+      expect(reference).to.be.eql('0560121');
+    });
+
+    it('should get the reference from PAGO CUENTA DE TERCERO with reference / option B', () => {
+      const description = 'PAGO CUENTA DE TERCERO/ 9539256342 BNET 2761285653 PAGO0560121';
+      const reference = parser.getThirdReference(description);
+      expect(reference).to.be.eql('0560121');
+    });
+
+    it('should use the right reference extractor', () => {
+      const tefDescription = 'TEF RECIBIDOBANAMEX/0183770760  002 03401210340121';
+      const tefReference = parser.getBancomerReference(tefDescription);
+      expect(tefReference).to.be.eql('0340121');
+
+      const speiDescription = 'SPEI RECIBIDOSANTANDER/0183281785 014 0300121CUOTA ENERO';
+      const speiReference = parser.getBancomerReference(speiDescription);
+      expect(speiReference).to.be.eql('0300121');
+
+      const practicDescription = 'DEPOSITO EFECTIVO PRACTIC/**2875 0620122 0763 FOLIO:2594';
+      const practicReference = parser.getBancomerReference(practicDescription);
+      expect(practicReference).to.be.eql('0620122');
+
+      const cashDescription = 'DEPOSITO EN EFECTIVO/000765500440121';
+      const cashReference = parser.getBancomerReference(cashDescription);
+      expect(cashReference).to.be.eql('0440121');
+
+      const thirdDescriptionOne = 'PAGO CUENTA DE TERCERO/ 9534080480 BNET 1228079528 PAGO CUOTA ANUAL';
+      const thirdWithoutReference = parser.getBancomerReference(thirdDescriptionOne);
+      expect(thirdWithoutReference).to.be.eql('');
+
+      const thirdDescriptionTwo = 'PAGO CUENTA DE TERCERO/ 9539256342 BNET 2761285653 0560121';
+      const thirdWithReference = parser.getBancomerReference(thirdDescriptionTwo);
+      expect(thirdWithReference).to.be.eql('0560121');
     });
 });

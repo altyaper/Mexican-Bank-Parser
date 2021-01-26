@@ -3,7 +3,7 @@ import fs from 'fs';
 import ParserScotiabank from '../lib/parser_scotiabank';
 import { expect } from 'chai';
 
-describe.only('Scotiabank', () => {
+describe('Scotiabank', () => {
   var content;
   var parser;
   beforeEach((done) => {
@@ -16,12 +16,6 @@ describe.only('Scotiabank', () => {
 
   it('should parse a scotiabank file', () => {
     expect(parser.split()).to.be.an('array');
-  });
-
-  it('should parser a line correctly', (done) => {
-    const line = '"CHQ"|"MXN"|000|00000021505639271|"2020/11/03"|00000000000000221101|600.00|"Abono"|243975.57|"SWEB TRASPASO ENTRE CUENTAS"||||""';
-    const object = parser.getPaymentObject(line);
-    done()
   });
 
   it('should hash the previous hash that we had before', () => {
@@ -52,5 +46,4 @@ describe.only('Scotiabank', () => {
     const object = parser.getArrayPaymentsObject(line);
     expect(object[0].description).to.be.eql('TRANSF INTERBANCARIA SPEI 00000000000000311200 TRANSF INTERBANCARIA SPEIPAGO/BBVA BANCOMERFecha de Abono: 04 NOVMBAN01002011040080919516EDNA PEDRO LOPEZ/012150001997990791')
   });
-  
 });
