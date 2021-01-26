@@ -129,7 +129,6 @@ describe('ParserBancomer', () => {
     it('should set the balance correctly', () => {
       const items = ['13-01-2021	SPEI RECIBIDOBANAMEX/0183770760  002 03401210340121		800.00	68,215.34'];
       const objects = parser.getArrayPaymentsObject(items);
-      console.log(objects[0].balance);
       expect(objects[0].balance).to.be.eql(68215.34);
     });
 });
