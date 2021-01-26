@@ -36,7 +36,7 @@ describe('ParserBancomer', () => {
         description: 'AGUA Y SANEAMIENTO CHIH/JMA500421 GPO O2392975',
         charge: '150.00',
         payment: '0',
-        balance: '360.00',
+        balance: 360,
         hash: '4ac5d2c662fa9c014368dcaa704ce07e',
         date: new Date(2020, 0, 2, 0, 0, 0)
       });
@@ -114,7 +114,7 @@ describe('ParserBancomer', () => {
       expect(practicReference).to.be.eql('0620122');
 
       const cashDescription = 'DEPOSITO EN EFECTIVO/000765500440121';
-      const cashReference = parser.getBancomerReference(cashDescription);
+      const cashReference = parser.getBancomerReference(cashDescription.trim());
       expect(cashReference).to.be.eql('0440121');
 
       const thirdDescriptionOne = 'PAGO CUENTA DE TERCERO/ 9534080480 BNET 1228079528 PAGO CUOTA ANUAL';
@@ -124,5 +124,12 @@ describe('ParserBancomer', () => {
       const thirdDescriptionTwo = 'PAGO CUENTA DE TERCERO/ 9539256342 BNET 2761285653 0560121';
       const thirdWithReference = parser.getBancomerReference(thirdDescriptionTwo);
       expect(thirdWithReference).to.be.eql('0560121');
+    });
+
+    it('should set the balance correctly', () => {
+      const items = ['13-01-2021	SPEI RECIBIDOBANAMEX/0183770760  002 03401210340121		800.00	68,215.34'];
+      const objects = parser.getArrayPaymentsObject(items);
+      console.log(objects[0].balance);
+      expect(objects[0].balance).to.be.eql(68215.34);
     });
 });
