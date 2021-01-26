@@ -34,8 +34,8 @@ describe('ParserBancomer', () => {
       expect(objects[0]).to.be.eql({
         reference: '',
         description: 'AGUA Y SANEAMIENTO CHIH/JMA500421 GPO O2392975',
-        charge: '150.00',
-        payment: '0',
+        charge: 150,
+        payment: 0,
         balance: 360,
         hash: '4ac5d2c662fa9c014368dcaa704ce07e',
         date: new Date(2020, 0, 2, 0, 0, 0)
@@ -55,7 +55,7 @@ describe('ParserBancomer', () => {
       expect(payments).to.be.length(7);
       expect(payments[0].reference).to.be.eql('');
       expect(payments[0].description).to.be.eql('AGUA Y SANEAMIENTO CHIH/JMA500421 GPO O2392975');
-      expect(payments[0].charge).to.be.eql('150.00');
+      expect(payments[0].charge).to.be.eql(150);
     });
 
     it('should get the reference from TEF', () => {
