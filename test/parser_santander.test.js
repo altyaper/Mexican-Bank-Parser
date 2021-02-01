@@ -36,14 +36,17 @@ describe('ParserSantander', () => {
   });
 
   it('should hash the previous hash that we had before', () => {
-    const line = ["065507051987,'01062020',05:48,'0560',COM MEM E-PYM                           ,-,650.00,137731.03,005368355,                   MAY 2020                                                               ,                                        ,                    ,                                        ,                    ,                                        ,  ,                              ,               ,               ,                              "];
+    const line = ["065507051987,'15072020',16:06,'7465',AB TRANSF SPEI                          ,+,400.00,136475.39,006128183      ,L2538                                    058597000006909835                               ,\"BANCO REGIONAL DE MONTERREY, SA         \",014150655070519870  ,COMITE SERATTA 36 ETAPA 1 AC            ,058597000006909835  ,MIGUEL ANGEL AVITIA REAZA               ,  ,                              ,CST160223SP0   ,AIRM790104TE   ,058-15/07/2020/15-998VO86897  "];
     const object = parser.getArrayPaymentsObject(line);
-    expect(object[0].description).to.be.eql('COM MEM E-PYM MAY 2020');
-    expect(object[0].reference).to.to.be.eql('5368355');
-    expect(object[0].hash).to.be.eql('5806a8bb50566b4a1eef4be20a1b31bc');
-    expect(object[0].payment).to.be.eql('0');
-    expect(object[0].charge).to.be.eql('650.00');
-    expect(object[0].date).to.be.eql(new Date('2020-06-02'));
+    expect(object[0]).to.be.eql({
+      date: new Date(Date.UTC(2020, 6, 16, 0, 0, 0)),
+      description: 'AB TRANSF SPEI 136475.39 006128183',
+      reference: '6128183',
+      payment: '400.00',
+      charge: '0',
+      balance: '136475.39',
+      hash: '0382f9a1d1eb8f4a310f4235ecd98dfe'
+    });
   });
 
 });

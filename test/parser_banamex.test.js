@@ -25,13 +25,13 @@ describe('ParserBanamex', () => {
   });
 
   it('should split line as Banamex line', () => {
-    const line = '"05-01-2018","NOUR BISTRO REST         BNO 17012SEBAMX ","7,629.10","","0.00","MXN"\r';
+    const line = '"25-01-2021","D INT 1230121 PAGO CUOTA AUT.417206","","15,000.00","50,162.64","MXN"';
     const object = parser.getPaymentObject(line);
-    expect(object[1]).to.be.eql('05-01-2018');
-    expect(object[2]).to.be.eql('NOUR BISTRO REST         BNO 17012SEBAMX');
-    expect(object[3]).to.be.eql('7,629.10');
-    expect(object[4]).to.be.eql('');
-    expect(object[5]).to.be.eql('0.00');
+    expect(object[1]).to.be.eql('25-01-2021');
+    expect(object[2]).to.be.eql('D INT 1230121 PAGO CUOTA AUT.417206');
+    expect(object[3]).to.be.eql('');
+    expect(object[4]).to.be.eql('15,000.00');
+    expect(object[5]).to.be.eql('50,162.64');
     expect(object[6]).to.be.eql('MXN');
   });
 
@@ -41,28 +41,21 @@ describe('ParserBanamex', () => {
     const payments = parser.getArrayPaymentsObject(noFirstLine);
     expect(payments).to.be.an('array');
     expect(payments[0]).to.be.an('object');
-    expect(payments[0]).to.be.eql({
-      date: new Date('01-05-2018'),
-      reference: 'NOUR BISTRO REST         BNO 170124EBAMX',
-      payment: '7,629.10',
-      charge: '0',
-      balance: '0.00',
-      currency: 'MXN',
-      hash: '8aee9342ddac0b9865622c7882a362ff'
-    });
   });
 
-  it('should parser a content correctly', () => {
-    const final = parser.parse();
-    expect(final[final.length - 1]).to.be.eql({
-      date: new Date('01-05-2018'),
-      reference: 'NOUR BISTRO REST         BNO 170124EBAMX',
-      payment: '7,629.10',
-      charge: '0',
-      balance: '0.00',
+  it('should get the right payment object', () => {
+    const lines = ['"25-01-2021","D INT 1230121 PAGO CUOTA AUT.417206","","15,000.00","50,162.64","MXN"'];
+    const object = parser.getArrayPaymentsObject(lines);
+    expect(object[0]).to.be.eql({
+      date: new Date(2021, 0, 25, 0, 0, 0),
+      description: 'D INT 1230121 PAGO CUOTA AUT.417206',
+      reference: '1230121',
+      payment: '0',
+      charge: 15000.00,
+      balance: 50162.64,
       currency: 'MXN',
-      hash: '8aee9342ddac0b9865622c7882a362ff'
+      hash: '7864d449c95dab3b8357b28b0dcb60cf'
     });
-  });
+  })
 
 });
