@@ -31,23 +31,23 @@ describe('ParserBanorte', () => {
     });
 
     it('should retrieve an array of objects from the content file', () => {
-      const items = ['17/Dic./2020	726	511	COMPRA ORDEN DE PAGO SPEI     0000000001 =REFERENCIA  CTA/CLABE: 014150655078641339, BXI SPEI BCO:014 BENEF:SOLAR CARPORTS MEXICO S DE R (DATO NO VERIF    POR ESTA INST), Paneles                                      CVE RASTREO: 7875APR1202012171153374990 RFC: SCM191018UZ3    IVA: 000000000000.00 SANTANDER           HORA LIQ: 07:21:58	100000		92187.09'];
+      const items = ['01/Feb./2021,867,3,"2021020240014BMOV0000492630930SPEI RECIBIDO, BCO:0014 SANTANDER           HR LIQ: 09:40:11 DEL CLIENTE BRIAN ROBERT BOUTILIER                           DE LA CLABE 014150606143770760   CON RFC BOBR860225AY5       CONCEPTO: 3330221                                            REFERENCIA: 6396706 CVE RAST: 2021020240014BMOV0000492630930",,$600.00,"$107,672.37",'];
       const objects = parser.getArrayPaymentsObject(items);
       expect(objects[0]).to.be.eql({
-        reference: '',
-        description: 'COMPRA ORDEN DE PAGO SPEI     0000000001 =REFERENCIA  CTA/CLABE: 014150655078641339, BXI SPEI BCO:014 BENEF:SOLAR CARPORTS MEXICO S DE R (DATO NO VERIF    POR ESTA INST), Paneles                                      CVE RASTREO: 7875APR1202012171153374990 RFC: SCM191018UZ3    IVA: 000000000000.00 SANTANDER           HORA LIQ: 07:21:58',
-        charge: '100000',
-        payment: '0',
-        balance: '92187.09',
-        hash: '0cd2fae8ebecacea03d1f7222c440a0f',
-        date: new Date(2020, 11, 17, 0, 0, 0)
+        reference: '6396706',
+        description: '2021020240014BMOV0000492630930SPEI RECIBIDO, BCO:0014 SANTANDER           HR LIQ: 09:40:11 DEL CLIENTE BRIAN ROBERT BOUTILIER                           DE LA CLABE 014150606143770760   CON RFC BOBR860225AY5       CONCEPTO: 3330221                                            REFERENCIA: 6396706 CVE RAST: 2021020240014BMOV0000492630930',
+        charge: '0',
+        payment: '600.00',
+        balance: '107672.37',
+        hash: '76c95f1365af4677b76c149c767daae7',
+        date: new Date(2021, 1, 1, 0, 0, 0)
       });
     });
 
     it('should get the right reference from a reference row', () => {
-      const items = ['18/Dic./2020	736	3	MBAN01002012210073093487      SPEI RECIBIDO, BCO:0012 BBVA BANCOMER       HR LIQ: 21:06:17 DEL CLIENTE JAVIER SAENZ LEGARDA                             DE LA CLABE 012158004573218058   CON RFC SALJ980820RA7       CONCEPTO: PANELES SOLARES JAVIER SAENZ                       REFERENCIA: 5381220 CVE RAST: MBAN01002012210073093487		2162.41	37106.32'];
+      const items = ['01/Feb./2021,867,3,"2021020240014BMOV0000492630930SPEI RECIBIDO, BCO:0014 SANTANDER           HR LIQ: 09:40:11 DEL CLIENTE BRIAN ROBERT BOUTILIER                           DE LA CLABE 014150606143770760   CON RFC BOBR860225AY5       CONCEPTO: 3330221                                            REFERENCIA: 6396706 CVE RAST: 2021020240014BMOV0000492630930",,$600.00,"$107,672.37",'];
       const objects = parser.getArrayPaymentsObject(items);
-      expect(objects[0].reference).to.be.eql('5381220');
+      expect(objects[0].reference).to.be.eql('6396706');
     });
 
     it('should get the right month number', () => {
