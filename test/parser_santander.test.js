@@ -40,7 +40,7 @@ describe('ParserSantander', () => {
     const object = parser.getArrayPaymentsObject(line);
     expect(object[0]).to.be.eql({
       date: new Date(Date.UTC(2020, 6, 16, 0, 0, 0)),
-      description: 'AB TRANSF SPEI 006128183 L2538                                    058597000006909835 058597000006909835',
+      description: 'AB TRANSF SPEI L2538                                    058597000006909835 BANCO REGIONAL DE MONTERREY 058597000006909835',
       reference: '6128183',
       payment: '400.00',
       charge: '0',
